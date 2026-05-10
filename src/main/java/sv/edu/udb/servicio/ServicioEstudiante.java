@@ -40,4 +40,7 @@ public class ServicioEstudiante {
         return repository.findByGrade(grade);
     }
 
+    public Estudiante getById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 }
