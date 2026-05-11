@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <h1 class="mb-4">Registro de Fechas Importantes</h1>
+
+    <form th:action="@{/guardarFecha}" method="post" th:object="${fechaImportante}">
+
+        <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" th:field="*{titulo}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea th:field="*{descripcion}" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha</label>
+            <input type="date" th:field="*{fecha}" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Guardar Fecha
+        </button>
+
+    </form>
+
+    <hr>
+
+    <h2 class="mt-4">Listado de Fechas</h2>
+
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="f : ${fechas}">
+            <td th:text="${f.id}"></td>
+            <td th:text="${f.titulo}"></td>
+            <td th:text="${f.descripcion}"></td>
+            <td th:text="${f.fecha}"></td>
+
+            <td>
+                <a th:href="@{/eliminarFecha/{id}(id=${f.id})}"
+                   class="btn btn-danger btn-sm">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
