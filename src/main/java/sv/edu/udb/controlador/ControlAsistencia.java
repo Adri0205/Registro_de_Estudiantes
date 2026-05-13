@@ -58,13 +58,4 @@ public class ControlAsistencia {
         return "redirect:/lista-asistencia";
     }
 
-    @GetMapping("/lista-asistencia")
-    public String lista(Model model) {
-
-        model.addAttribute("asistencias",
-                asistenciaService.listar());
-
-        return "lista-asistencia";
-    }
-
 }
