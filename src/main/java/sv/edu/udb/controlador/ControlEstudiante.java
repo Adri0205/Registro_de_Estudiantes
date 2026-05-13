@@ -19,6 +19,7 @@ public class ControlEstudiante {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("students", service.getAllStudents());
+        model.addAttribute("student", new Estudiante());
         return "index";
     }
 

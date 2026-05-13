@@ -24,6 +24,10 @@ public class ServicioEstudiante {
         repository.save(estudiante);
     }
 
+    public Estudiante findById(Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+
     public void deleteById(Long id) {
         repository.deleteById(id);
     }

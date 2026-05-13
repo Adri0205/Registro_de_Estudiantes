@@ -30,18 +30,22 @@ public class ControlAsistencia {
         return "asistencia";
     }
 
+    @GetMapping("/lista-asistencia")
+    public String listaAsistencias(Model model) {
+        model.addAttribute("asistencias", asistenciaService.listar());
+        return "lista-asistencia";
+    }
+
     @PostMapping("/guardarAsistencia")
     public String guardarAsistencia(
             @RequestParam(required = false) Long estudianteId,
-            @RequestParam String estado
-    ) {
+            @RequestParam String estado) {
 
         if (estudianteId == null) {
             return "redirect:/asistencia";
         }
 
-        Estudiante estudiante =
-                estudianteService.getById(estudianteId);
+        Estudiante estudiante = estudianteService.getById(estudianteId);
 
         Asistencia asistencia = new Asistencia();
 

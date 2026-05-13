@@ -20,4 +20,5 @@ public class ServicioAsistencia {
     public void guardar(Asistencia asistencia) {
         repository.save(asistencia);
     }
+    
 }
