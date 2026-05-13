@@ -46,6 +46,6 @@ public class ControlAsistencia {
 
         asistenciaService.guardar(asistencia);
 
-        return "redirect:/asistencia";
+        return "lista-asistencia";
     }
 }

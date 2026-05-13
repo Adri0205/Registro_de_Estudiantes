@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Registrar Estudiante</title>
 
+
+    <title>Inicio | Sistema Escolar</title>
     <meta charset="UTF-8">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
     <style>
 
@@ -23,130 +22,230 @@
             background:#4F6D7A;
         }
 
-        .card{
-            border:none;
-            border-radius:12px;
+        .navbar-brand{
+            font-weight:600;
+            font-size:22px;
         }
 
-        .btn-save{
+        .nav-link{
+            color:white !important;
+            margin-left:10px;
+            border-radius:8px;
+            padding:8px 14px !important;
+            transition:0.3s;
+        }
+
+        .nav-link:hover{
+            background:rgba(255,255,255,0.15);
+        }
+
+        .title-page{
+            color:#4F6D7A;
+            font-weight:600;
+        }
+
+        .card{
+            border:none;
+            border-radius:14px;
+        }
+
+        .stat-card{
+            color:white;
+        }
+
+        .bg-blue{
+            background:#4F6D7A;
+        }
+
+        .bg-green{
+            background:#6BBF59;
+        }
+
+        .bg-orange{
+            background:#F4A261;
+        }
+
+        .table thead{
+            background:#4F6D7A;
+            color:white;
+        }
+
+        .table tbody tr:hover{
+            background:#f1f3f5;
+        }
+
+        .btn-main{
             background:#6BBF59;
             color:white;
             border:none;
         }
 
-        .btn-save:hover{
+        .btn-main:hover{
             background:#5aa94b;
+            color:white;
+        }
+
+        .btn-delete{
+            background:#E57373;
+            color:white;
+            border:none;
+        }
+
+        .btn-delete:hover{
+            background:#d95f5f;
+            color:white;
         }
 
     </style>
+
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-dark shadow-sm">
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+
     <div class="container">
 
-        <span class="navbar-brand">
-            Sistema de Registro de Estudiantes
-        </span>
+        <a class="navbar-brand" th:href="@{/}">
+            Sistema Escolar
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/new}">Registrar</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/asistencia}">Asistencia</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/lista-asistencia}">Lista Asistencia</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/fechas}">Fechas</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/report}">Reportes</a>
+                </li>
+
+            </ul>
+
+        </div>
 
     </div>
+
 </nav>
+
 
 <div class="container mt-5">
 
-    <div class="row justify-content-center">
 
-        <div class="col-md-6">
+    <div class="row mb-4">
 
-            <div class="card shadow">
+        <div class="col-md-4 mb-3">
 
-                <div class="card-body">
-
-                    <h4 class="mb-4 text-center">
-                        Registrar Estudiante
-                    </h4>
-
-                    <form th:action="@{/save}"
-                          th:object="${student}"
-                          method="post">
-
-                        <div class="mb-3">
-
-                            <label class="form-label">Nombre</label>
-
-                            <input type="text"
-                                   th:field="*{name}"
-                                   class="form-control"
-                                   required>
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label class="form-label">Edad</label>
-
-                            <input type="number"
-                                   th:field="*{age}"
-                                   class="form-control"
-                                   required>
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label class="form-label">Grado</label>
-
-                            <input type="text"
-                                   th:field="*{grade}"
-                                   class="form-control"
-                                   required>
-
-                        </div>
-
-                        <div class="mb-4">
-
-                            <label class="form-label">Sección</label>
-
-                            <select th:field="*{section}"
-                                    class="form-select">
-
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="d-grid gap-2">
-
-                            <button type="submit"
-                                    class="btn btn-save">
-
-                                Guardar Estudiante
-
-                            </button>
-
-                            <a href="/asistencia"
-                               class="btn btn-success">
-
-                                Registro de Asistencia
-
-                            </a>
-
-                            <a href="/lista-asistencia"
-                               class="btn btn-dark">
-
-                                Ver Asistencias
-
-                            </a>
-
-                        </div>
-
-                    </form>
-
+            <div class="card stat-card bg-blue shadow">
+                <div class="card-body text-center">
+                    <h5>Total Estudiantes</h5>
+                    <h2 th:text="${#lists.size(students)}">0</h2>
                 </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card stat-card bg-green shadow">
+                <div class="card-body text-center">
+                    <h5>Sección A/B</h5>
+                    <h2>2</h2>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card stat-card bg-orange shadow">
+                <div class="card-body text-center">
+                    <h5>Sistema Activo</h5>
+                    <h2>100%</h2>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <h5 class="mb-3">Listado General</h5>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Grado</th>
+                        <th>Sección</th>
+                        <th class="text-center">Acción</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="student : ${students}">
+
+                        <td th:text="${student.name}"></td>
+
+                        <td th:text="${student.age}"></td>
+
+                        <td th:text="${student.grade}"></td>
+
+                        <td th:text="${student.section}"></td>
+
+                        <td class="text-center">
+
+                            <a th:href="@{/delete/{id}(id=${student.id})}"
+                               class="btn btn-sm btn-delete">
+                                Eliminar
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
 
             </div>
 
@@ -156,6 +255,8 @@
 
 </div>
 
-</body>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>
