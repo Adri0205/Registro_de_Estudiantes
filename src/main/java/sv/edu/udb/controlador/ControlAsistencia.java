@@ -1,14 +1,14 @@
 package sv.edu.udb.controlador;
 
-import sv.edu.udb.modelo.Asistencia;
-import sv.edu.udb.modelo.Estudiante;
-import sv.edu.udb.servicio.ServicioAsistencia;
-import sv.edu.udb.servicio.ServicioEstudiante;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import sv.edu.udb.modelo.Asistencia;
+import sv.edu.udb.modelo.Estudiante;
+import sv.edu.udb.servicio.ServicioAsistencia;
+import sv.edu.udb.servicio.ServicioEstudiante;
 
 import java.time.LocalDate;
 
@@ -22,21 +22,26 @@ public class ControlAsistencia {
     private ServicioEstudiante estudianteService;
 
     @GetMapping("/asistencia")
-    public String mostrarFormulario(Model model) {
+    public String asistencia(Model model) {
 
-        model.addAttribute("students", estudianteService.getAllStudents());
-        model.addAttribute("asistencia", new Asistencia());
+        model.addAttribute("students",
+                estudianteService.getAllStudents());
 
         return "asistencia";
     }
 
     @PostMapping("/guardarAsistencia")
     public String guardarAsistencia(
-            @RequestParam Long estudianteId,
+            @RequestParam(required = false) Long estudianteId,
             @RequestParam String estado
     ) {
 
-        Estudiante estudiante = estudianteService.getById(estudianteId);
+        if (estudianteId == null) {
+            return "redirect:/asistencia";
+        }
+
+        Estudiante estudiante =
+                estudianteService.getById(estudianteId);
 
         Asistencia asistencia = new Asistencia();
 
@@ -46,6 +51,16 @@ public class ControlAsistencia {
 
         asistenciaService.guardar(asistencia);
 
+        return "redirect:/lista-asistencia";
+    }
+
+    @GetMapping("/lista-asistencia")
+    public String lista(Model model) {
+
+        model.addAttribute("asistencias",
+                asistenciaService.listar());
+
         return "lista-asistencia";
     }
+
 }
