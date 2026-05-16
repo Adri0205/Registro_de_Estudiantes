@@ -1,5 +1,6 @@
 package sv.edu.udb.servicio;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import sv.edu.udb.modelo.Estudiante;
 import sv.edu.udb.repositorio.RepositorioEstudiante;
 
@@ -36,15 +37,25 @@ public class ServicioEstudiante {
         repository.deleteById(id);
     }
 
-    public List<Estudiante> searchByName(String name) {
-        return repository.findByNameContaining(name);
+    public List<Estudiante> buscarPorNombre(String nombre) {
+        return repository.findByNameContaining(nombre);
     }
 
-    public List<Estudiante> searchByGrade(String grade) {
-        return repository.findByGrade(grade);
+    public List<Estudiante> buscarPorGradeYSection(
+            String grade,
+            String section
+    ) {
+
+        return repositorioEstudiante
+                .findByGradeAndSection(
+                        grade,
+                        section
+                );
     }
 
     public Estudiante getById(Long id) {
         return repository.findById(id).orElse(null);
     }
+    @Autowired
+    private RepositorioEstudiante repositorioEstudiante;
 }

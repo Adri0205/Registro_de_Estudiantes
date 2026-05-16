@@ -11,6 +11,8 @@ import sv.edu.udb.servicio.ServicioAsistencia;
 import sv.edu.udb.servicio.ServicioEstudiante;
 
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.List;
 
 @Controller
 public class ControlAsistencia {
@@ -21,6 +23,10 @@ public class ControlAsistencia {
     @Autowired
     private ServicioEstudiante estudianteService;
 
+    @GetMapping("/inicio-asistencia")
+    public String inicio() {
+        return "asistencia";
+    }
     @GetMapping("/asistencia")
     public String asistencia(Model model) {
 
@@ -56,6 +62,82 @@ public class ControlAsistencia {
         asistenciaService.guardar(asistencia);
 
         return "redirect:/lista-asistencia";
+    }
+    @GetMapping("/salon")
+    public String verSalon(
+            @RequestParam(required = false) Integer grade,
+            @RequestParam(required = false) String section,
+            Model model
+    ) {
+
+        if (grade == null || section == null) {
+            return "salones";
+        }
+
+        List<Estudiante> students =
+                estudianteService
+                        .buscarPorGradeYSection(
+                                String.valueOf(grade),
+                                section
+                        );
+
+        model.addAttribute("students", students);
+        model.addAttribute("grado", grade);
+        model.addAttribute("seccion", section);
+
+        return "salones";
+    }
+    @PostMapping("/guardarAsistenciaSalon")
+    public String guardarAsistenciaSalon(
+            @RequestParam Map<String,String> params
+    ) {
+
+        int grade =
+                Integer.parseInt(params.get("grado"));
+
+        String section =
+                params.get("seccion");
+
+        List<Estudiante> students =
+                estudianteService
+                        .buscarPorGradeYSection(String.valueOf(grade), section);
+
+        for(Estudiante student : students){
+
+            String estado =
+                    params.get("estado_" + student.getId());
+
+            Asistencia asistenciaExistente =
+                    asistenciaService
+                            .buscarPorFechaYEstudiante(
+                                    LocalDate.now(),
+                                    student
+                            );
+
+            if(asistenciaExistente != null){
+
+                asistenciaExistente.setEstado(estado);
+
+                asistenciaService
+                        .guardar(asistenciaExistente);
+
+            }else{
+
+                Asistencia asistencia =
+                        new Asistencia();
+
+                asistencia.setEstudiante(student);
+                asistencia.setEstado(estado);
+                asistencia.setFecha(LocalDate.now());
+
+                asistenciaService.guardar(asistencia);
+            }
+        }
+
+        return "redirect:/salon?grade="
+                + grade +
+                "&section=" +
+                section;
     }
 
 }
