@@ -1,10 +1,12 @@
 package sv.edu.udb.config;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import sv.edu.udb.config.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 
 @Configuration
@@ -19,49 +21,75 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        UserDetails usuario = User.builder()
-                .username("usuario")
+        // CAMBIO AQUÍ: usuario -> user
+        UserDetails user = User.builder()
+                .username("user")
                 .password("{noop}user123")
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin, usuario);
+        return new InMemoryUserDetailsManager(admin, user);
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http)
+            throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/css/**", "/js/**").permitAll()
+                        .requestMatchers(
+                                "/login",
+                                "/css/**",
+                                "/js/**"
+                        ).permitAll()
 
-                        .requestMatchers("/").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/report").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/lista-asistencia").hasAnyRole("ADMIN", "USER")
+
+                        // SOLO ADMIN
 
                         .requestMatchers(
-                                "/new",
-                                "/save",
-                                "/delete/**",
+                                "/",
+                                "/asistencia",
+                                "/lista-asistencia",
+                                "/materias",
                                 "/fechas",
                                 "/guardarFecha",
-                                "/eliminarFecha/**"
-                        ).hasRole("ADMIN")
+                                "/eliminarFecha/**",
+                                "/save",
+                                "/new",
+                                "/delete/**",
+                                "/report"
+                        )
+                        .hasRole("ADMIN")
 
-                        .anyRequest().authenticated()
+
+                        // ADMIN Y USER
+
+                        .requestMatchers("/notas")
+                        .hasAnyRole("ADMIN","USER")
+
+
+                        .anyRequest()
+                        .authenticated()
                 )
 
                 .formLogin(login -> login
+
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+
+                        .failureUrl("/login?error=true")
+
+                        .successHandler(
+                                new LoginSuccessHandler()
+                        )
+
                         .permitAll()
                 )
 
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/login?logout=true")
                         .permitAll()
                 );
 

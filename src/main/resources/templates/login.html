@@ -14,6 +14,7 @@
             justify-content:center;
             align-items:center;
             height:100vh;
+            font-family: Arial,sans-serif;
         }
 
         .card{
@@ -25,7 +26,14 @@
         .btn-login{
             background:#4F6D7A;
             color:white;
+            border:none;
         }
+
+        .btn-login:hover{
+            background:#3B5661;
+            color:white;
+        }
+
     </style>
 
 </head>
@@ -33,39 +41,69 @@
 
 <div class="card shadow p-4">
 
-    <h2 class="text-center mb-4">Sistema Escolar</h2>
+    <h2 class="text-center mb-4">
+        Sistema Escolar
+    </h2>
 
-    <form th:action="@{/login}" method="post">
+
+    <!-- Mensaje si usuario/contraseña son incorrectos -->
+
+    <div th:if="${param.error}"
+         class="alert alert-danger">
+
+        Usuario o contraseña incorrectos
+
+    </div>
+
+
+    <!-- Mensaje al cerrar sesión -->
+
+    <div th:if="${param.logout}"
+         class="alert alert-success">
+
+        Sesión cerrada correctamente
+
+    </div>
+
+
+    <form th:action="@{/login}"
+          method="post">
 
         <div class="mb-3">
-            <label>Usuario</label>
-            <input type="text" name="username" class="form-control" required>
+
+            <label>
+                Usuario
+            </label>
+
+            <input type="text"
+                   name="username"
+                   class="form-control"
+                   placeholder="Ingrese usuario"
+                   required>
+
         </div>
+
         <div class="mb-3">
-            <label>Contraseña</label>
-            <input type="password" name="password" class="form-control" required>
+
+            <label>
+                Contraseña
+            </label>
+
+            <input type="password"
+                   name="password"
+                   class="form-control"
+                   placeholder="Ingrese contraseña"
+                   required>
+
         </div>
 
         <button class="btn btn-login w-100">
+
             Iniciar Sesión
+
         </button>
 
     </form>
-
-    <div class="mt-4">
-
-        <h6>Credenciales:</h6>
-
-        <p>
-            <strong>Administrador:</strong><br>
-            admin / admin123
-        </p>
-
-        <p>
-            <strong>Usuario:</strong><br>
-            usuario / user123
-        </p>
-    </div>
 
 </div>
 
