@@ -32,6 +32,7 @@ public class ServicioMateria {
     }
 
     public Materia findById(Long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Materia no encontrada con ID: " + id));
     }
 }

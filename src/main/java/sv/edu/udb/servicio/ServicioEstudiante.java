@@ -26,7 +26,8 @@ public class ServicioEstudiante {
     }
 
     public Estudiante findById(Long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con ID: " + id));
     }
 
     public void deleteById(Long id) {
@@ -41,21 +42,11 @@ public class ServicioEstudiante {
         return repository.findByNameContaining(nombre);
     }
 
-    public List<Estudiante> buscarPorGradeYSection(
-            String grade,
-            String section
-    ) {
-
-        return repositorioEstudiante
-                .findByGradeAndSection(
-                        grade,
-                        section
-                );
+    public List<Estudiante> buscarPorGradeYSection(String grade, String section) {
+        return repository.findByGradeAndSection(grade, section);
     }
 
     public Estudiante getById(Long id) {
         return repository.findById(id).orElse(null);
     }
-    @Autowired
-    private RepositorioEstudiante repositorioEstudiante;
 }
