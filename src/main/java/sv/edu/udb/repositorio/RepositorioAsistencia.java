@@ -7,9 +7,14 @@ import sv.edu.udb.modelo.Estudiante;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.List;
 
 public interface RepositorioAsistencia
         extends JpaRepository<Asistencia, Long> {
+
+    List<Asistencia> findByEstudiante(Estudiante estudiante);
+
+    void deleteByEstudianteId(Long estudianteId);
 
     Optional<Asistencia> findByEstudianteAndFecha(
             Estudiante estudiante,

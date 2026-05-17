@@ -133,15 +133,6 @@
 
             </a>
 
-            <a href="/materias"
-               class="nav-link-custom"
-               sec:authorize="hasRole('ADMIN')">
-
-                <i class="bi bi-book"></i>
-                Materias
-
-            </a>
-
             <a href="/asistencia"
                class="nav-link-custom"
                sec:authorize="hasRole('ADMIN')">
@@ -277,13 +268,13 @@
 
                         <td th:text="${iter.index + 1}"></td>
 
-                        <td th:text="${s.name}"></td>
+                        <td th:text="${s.nombres}"></td>
 
-                        <td th:text="${s.age}"></td>
+                        <td th:text="${s.edad}"></td>
 
-                        <td th:text="${s.grade}"></td>
+                        <td th:text="${s.grado}"></td>
 
-                        <td th:text="${s.section}"></td>
+                        <td th:text="${s.seccion}"></td>
 
                         <td>
 
@@ -327,8 +318,8 @@
                     </thead>
                     <tbody>
                     <tr th:each="nota : ${notas}">
-                        <td th:text="${nota.estudiante.name}"></td>
-                        <td th:text="${nota.materia.nombre}"></td>
+                        <td th:text="${nota.estudiante.nombres}"></td>
+                        <td th:text="${nota.materia.nombres}"></td>
                         <td th:text="${nota.nota1}"></td>
                         <td th:text="${nota.nota2}"></td>
                         <td th:text="${nota.nota3}"></td>
@@ -370,7 +361,7 @@
 
                         <td th:text="${materia.id}"></td>
 
-                        <td th:text="${materia.nombre}"></td>
+                        <td th:text="${materia.nombres}"></td>
 
                     </tr>
 
@@ -381,15 +372,6 @@
             </div>
 
         </div>
-
-    </div>
-
-    <div class="text-center mb-5">
-
-        <a th:href="@{/}" class="btn btn-primary btn-lg me-3">
-            Volver al Inicio
-        </a>
-
 
     </div>
 

@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface RepositorioEstudiante extends JpaRepository<Estudiante, Long> {
 
-    List<Estudiante> findByGrade(String grade);
+    List<Estudiante> findByGrado(String grado);
 
-    List<Estudiante> findBySection(String section);
+    List<Estudiante> findBySeccion(String seccion);
 
-    List<Estudiante> findByGradeAndSection(String grade, String section);
+    List<Estudiante> findByGradoAndSeccion(String grado, String seccion);
 
-    List<Estudiante> findByNameContaining(String name);
+    List<Estudiante> findByNombresContaining(String nombres);
 
 }

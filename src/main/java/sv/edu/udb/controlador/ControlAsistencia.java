@@ -96,9 +96,9 @@ public class ControlAsistencia {
 
         Estudiante estudiante = new Estudiante();
 
-        estudiante.setName(nombre);
-        estudiante.setGrade(grade);
-        estudiante.setSection(section);
+        estudiante.setNombres(nombre);
+        estudiante.setGrado(grade);
+        estudiante.setSeccion(section);
 
         estudianteService.saveStudent(estudiante);
 

@@ -15,17 +15,11 @@ public class ServicioNota {
         this.repository = repository;
     }
 
-    /**
-     * Accion que nos permitira guardar las notas
-     */
     public void guardarNota(Nota nota) {
         nota.calcularPromedio();
         repository.save(nota);
     }
 
-    /**
-     * Obtener notas
-     */
     public List<Nota> obtenerNota() {
         return repository.findAll();
     }

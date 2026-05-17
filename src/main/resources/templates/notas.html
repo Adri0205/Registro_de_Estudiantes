@@ -120,15 +120,6 @@
 
                 </a>
 
-                <a href="/materias"
-                   class="nav-link-custom"
-                   sec:authorize="hasRole('ADMIN')">
-
-                    <i class="bi bi-book"></i>
-                    Materias
-
-                </a>
-
                 <a href="/asistencia"
                    class="nav-link-custom"
                    sec:authorize="hasRole('ADMIN')">
@@ -189,7 +180,7 @@
                                 <select name="estudianteId" id="estudianteId" class="form-select" required>
                                     <option value="">Seleccione un estudiante</option>
                                     <option th:each="student : ${students}" th:value="${student.id}"
-                                        th:text="${student.name}">
+                                        th:text="${student.nombres}">
                                     </option>
                                 </select>
                                 <div class="invalid-feedback" id="errorEstudiante">
@@ -272,7 +263,7 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="nota : ${notas}">
-                                        <td th:text="${nota.estudiante.name}"></td>
+                                        <td th:text="${nota.estudiante.nombres}"></td>
                                         <td th:text="${nota.materia.nombre}"></td>
                                         <td th:text="${nota.nota1}"></td>
                                         <td th:text="${nota.nota2}"></td>
