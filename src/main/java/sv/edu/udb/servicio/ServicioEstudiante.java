@@ -1,10 +1,8 @@
 package sv.edu.udb.servicio;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import sv.edu.udb.modelo.Estudiante;
 import sv.edu.udb.repositorio.RepositorioEstudiante;
-
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -21,20 +19,15 @@ public class ServicioEstudiante {
         return repository.findAll();
     }
 
-    public void saveStudent(Estudiante estudiante) {
+    public void save(Estudiante estudiante) {
         repository.save(estudiante);
     }
 
     public Estudiante findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con ID: " + id));
+        return repository.findById(id).orElseThrow();
     }
 
     public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
-
-    public void deleteStudent(Long id) {
         repository.deleteById(id);
     }
 
@@ -42,8 +35,14 @@ public class ServicioEstudiante {
         return repository.findByNameContaining(nombre);
     }
 
-    public List<Estudiante> buscarPorGradeYSection(String grade, String section) {
-        return repository.findByGradeAndSection(grade, section);
+    public List<Estudiante> buscarPorGradeYSection(
+            String grade,
+            String section
+    ) {
+        return repository.findByGradeAndSection(
+                grade,
+                section
+        );
     }
 
     public Estudiante getById(Long id) {

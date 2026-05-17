@@ -139,6 +139,8 @@
                    name="seccion"
                    th:value="${seccion}">
 
+
+
             <table class="table table-bordered table-hover">
 
                 <thead class="table-dark">
@@ -194,6 +196,40 @@
             </div>
 
         </form>
+        <div class="mb-4">
+
+            <h5>Agregar Estudiante</h5>
+
+            <form th:action="@{/salon/agregar}" method="post">
+
+                <input type="hidden" name="grade" th:value="${grado}">
+                <input type="hidden" name="section" th:value="${seccion}">
+
+                <div class="row">
+
+                    <div class="col-md-8">
+
+                        <input type="text"
+                               name="nombre"
+                               class="form-control"
+                               placeholder="Nombre del estudiante"
+                               required>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <button class="btn btn-success w-100">
+                            Agregar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
 

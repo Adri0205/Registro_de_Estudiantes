@@ -87,6 +87,24 @@ public class ControlAsistencia {
 
         return "salones";
     }
+    @PostMapping("/salon/agregar")
+    public String agregarEstudiante(
+            @RequestParam String nombre,
+            @RequestParam String grade,
+            @RequestParam String section
+    ) {
+
+        Estudiante estudiante = new Estudiante();
+
+        estudiante.setName(nombre);
+        estudiante.setGrade(grade);
+        estudiante.setSection(section);
+
+        estudianteService.save(estudiante);
+
+        return "redirect:/asistencia/" + grade + "/" + section;
+    }
+
     @PostMapping("/guardarAsistenciaSalon")
     public String guardarAsistenciaSalon(
             @RequestParam Map<String,String> params
