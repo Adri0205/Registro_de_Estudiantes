@@ -100,7 +100,7 @@ public class ControlAsistencia {
         estudiante.setGrade(grade);
         estudiante.setSection(section);
 
-        estudianteService.save(estudiante);
+        estudianteService.saveStudent(estudiante);
 
         return "redirect:/asistencia/" + grade + "/" + section;
     }

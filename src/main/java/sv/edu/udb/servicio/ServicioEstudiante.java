@@ -19,15 +19,20 @@ public class ServicioEstudiante {
         return repository.findAll();
     }
 
-    public void save(Estudiante estudiante) {
+    public void saveStudent(Estudiante estudiante) {
         repository.save(estudiante);
     }
 
     public Estudiante findById(Long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con ID: " + id));
     }
 
     public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
+    public void deleteStudent(Long id) {
         repository.deleteById(id);
     }
 
@@ -35,14 +40,8 @@ public class ServicioEstudiante {
         return repository.findByNameContaining(nombre);
     }
 
-    public List<Estudiante> buscarPorGradeYSection(
-            String grade,
-            String section
-    ) {
-        return repository.findByGradeAndSection(
-                grade,
-                section
-        );
+    public List<Estudiante> buscarPorGradeYSection(String grade, String section) {
+        return repository.findByGradeAndSection(grade, section);
     }
 
     public Estudiante getById(Long id) {

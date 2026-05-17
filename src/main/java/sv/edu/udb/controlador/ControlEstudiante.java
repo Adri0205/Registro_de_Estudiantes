@@ -31,7 +31,7 @@ public class ControlEstudiante {
 
     @PostMapping("/save")
     public String saveStudent(@ModelAttribute Estudiante estudiante) {
-        service.save(estudiante);
+        service.saveStudent(estudiante);
         return "redirect:/";
     }
 

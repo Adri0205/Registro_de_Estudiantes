@@ -71,26 +71,53 @@
 
     <div class="container">
 
-        <a class="navbar-brand text-white text-decoration-none"
-           href="/">
-
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <i class="bi bi-mortarboard-fill"></i>
             Sistema Escolar
-
         </a>
 
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 flex-wrap">
+
+            <a href="/"
+               class="nav-link-custom"
+               sec:authorize="hasRole('ADMIN')">
+
+                <i class="bi bi-people"></i>
+                Estudiantes
+
+            </a>
+
+            <a href="/notas" class="nav-link-custom">
+
+                <i class="bi bi-journal-check"></i>
+                Notas
+
+            </a>
+
+            <a href="/materias"
+               class="nav-link-custom"
+               sec:authorize="hasRole('ADMIN')">
+
+                <i class="bi bi-book"></i>
+                Materias
+
+            </a>
 
             <a href="/asistencia"
-               class="nav-link-custom active">
+               class="nav-link-custom"
+               sec:authorize="hasRole('ADMIN')">
 
+                <i class="bi bi-calendar-check"></i>
                 Asistencia
 
             </a>
 
-            <a href="/lista-asistencia"
-               class="nav-link-custom text-white">
+            <a href="/fechas"
+               class="nav-link-custom"
+               sec:authorize="hasRole('ADMIN')">
 
-                Lista
+                <i class="bi bi-list-check"></i>
+                Fechas
 
             </a>
 

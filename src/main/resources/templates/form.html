@@ -75,9 +75,14 @@
                     <a class="nav-link" th:href="@{/asistencia}">Asistencia</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/lista-asistencia}">Lista Asistencia</a>
-                </li>
+                <a href="/fechas"
+                   class="nav-link-custom"
+                   sec:authorize="hasRole('ADMIN')">
+
+                    <i class="bi bi-list-check"></i>
+                    Fechas
+
+                </a>
 
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/fechas}">Fechas</a>

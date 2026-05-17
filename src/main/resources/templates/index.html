@@ -147,12 +147,12 @@
 
                 </a>
 
-                <a href="/lista-asistencia"
+                <a href="/fechas"
                    class="nav-link-custom"
                    sec:authorize="hasRole('ADMIN')">
 
                     <i class="bi bi-list-check"></i>
-                    Lista
+                    Fechas
 
                 </a>
 
@@ -230,8 +230,17 @@
                                     Grado
                                 </label>
 
-                                <input type="text" th:field="*{grade}" class="form-control"
-                                    placeholder="1°" required>
+                                <select type="text" th:field="*{grade}" class="form-select">
+                                    <option value="A">1°</option>
+                                    <option value="B">2°</option>
+                                    <option value="A">3°</option>
+                                    <option value="B">4°</option>
+                                    <option value="A">5°</option>
+                                    <option value="B">6°</option>
+                                    <option value="A">7°</option>
+                                    <option value="B">8°</option>
+                                    <option value="A">9°</option>
+                                </select>
 
                             </div>
 
